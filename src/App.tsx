@@ -10,7 +10,7 @@ interface AppContextInterface {
 
 const AppContext = createContext<AppContextInterface | null>(null);
 
-function App() {
+export const App = () => {
   const [location, setLocation] = useState<string>("London%2C+gb");
   const [input, setInput] = useState<string>("");
 
@@ -48,12 +48,13 @@ function App() {
             </Link>
           </form>
           <Routes>
-            <Route path={`/${location}`} element={<InfoPanel />} />
+            <Route
+              path={`/${location}`}
+              element={<InfoPanel location={location} />}
+            />
           </Routes>
         </div>
       </BrowserRouter>
     </AppContext.Provider>
   );
-}
-
-export default App;
+};
