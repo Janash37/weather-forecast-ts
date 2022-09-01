@@ -1,14 +1,8 @@
-import React, { useState, createContext } from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import { Title } from "./components/Title";
 import { InfoPanel } from "./components/InfoPanel";
-
-interface AppContextInterface {
-  location: string;
-}
-
-const AppContext = createContext<AppContextInterface | null>(null);
 
 export const App = () => {
   const [location, setLocation] = useState<string>("London%2C+gb");
@@ -27,34 +21,28 @@ export const App = () => {
     setInput("");
   };
 
-  const contextValue: AppContextInterface = {
-    location: location,
-  };
-
   return (
-    <AppContext.Provider value={contextValue}>
-      <BrowserRouter>
-        <div className="App">
-          <Title />
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              value={input}
-              placeholder="Input city name, e.g. (London, gb)"
-              onChange={handleChange}
-            />
-            <Link id="location-link" to={`/${location}`}>
-              <button>Search</button>
-            </Link>
-          </form>
-          <Routes>
-            <Route
-              path={`/${location}`}
-              element={<InfoPanel location={location} />}
-            />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </AppContext.Provider>
+    <BrowserRouter>
+      <div className="App">
+        <Title />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={input}
+            placeholder="Input city name, e.g. (London, gb)"
+            onChange={handleChange}
+          />
+          <Link id="location-link" to={`/${location}`}>
+            <button>Search</button>
+          </Link>
+        </form>
+        <Routes>
+          <Route
+            path={`/${location}`}
+            element={<InfoPanel location={location} />}
+          />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 };

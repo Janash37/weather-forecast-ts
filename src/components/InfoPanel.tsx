@@ -5,6 +5,29 @@ interface Props {
   location: string;
 }
 
+interface Main {
+  temp: number;
+  temp_max: number;
+  temp_min: number;
+  humidity: number;
+}
+
+interface Wind {
+  speed: number;
+}
+
+interface Weather {
+  description: string;
+  icon: string;
+  id: number;
+}
+
+interface WeatherInfo {
+  main: Main;
+  weather: Weather[];
+  wind: Wind;
+}
+
 interface CityInfo {
   name: string;
   country: string;
@@ -12,6 +35,7 @@ interface CityInfo {
 
 interface City {
   city: CityInfo;
+  list: WeatherInfo[];
 }
 
 export const InfoPanel: FC<Props> = ({ location }) => {
@@ -20,6 +44,7 @@ export const InfoPanel: FC<Props> = ({ location }) => {
       name: "London",
       country: "gb",
     },
+    list: [],
   });
 
   const getApiData = async () => {
@@ -32,7 +57,7 @@ export const InfoPanel: FC<Props> = ({ location }) => {
   };
 
   useEffect(() => {
-    getApiData().then(() => {});
+    getApiData();
   }, [location]);
 
   if (!weatherInfo) {
@@ -49,7 +74,7 @@ export const InfoPanel: FC<Props> = ({ location }) => {
           {/* <TwelveHrWeatherCard weatherInfo={weatherInfo} /> */}
         </div>
         <div id="eight-day-forecast">
-          {/* <EightDayWeatherCard weatherInfo={weatherInfo} /> */}
+          {/* <FiveDayWeatherCard weatherInfo={weatherInfo} /> */}
         </div>
       </div>
     );
