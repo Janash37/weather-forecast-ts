@@ -39,6 +39,7 @@ interface City {
 export const App = () => {
   const [query, setQuery] = useState<string | null>(null);
   const [input, setInput] = useState<string>("");
+  const [error, setError] = useState<boolean>(false);
 
   const [location, setLocation] = useState<City>({
     city: {
@@ -71,28 +72,53 @@ export const App = () => {
       })
       .then((responseObj) => {
         setLocation(responseObj);
+      })
+      .catch((err) => {
+        setError(true);
       });
   };
 
   useEffect(() => {
-    if (query !== null) {
+    if (query !== null && error === false) {
       getApiData();
     }
   }, [query]);
 
-  return (
-    <div className="App">
-      <Title />
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={input}
-          placeholder="Input city name, e.g. (London, gb)"
-          onChange={handleChange}
-        />
-        <button type="submit">Search</button>
-        <InfoPanel location={location} />
-      </form>
-    </div>
-  );
+  if (error) {
+    return (
+      <div className="App">
+        <Title />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={input}
+            placeholder="Input city name, e.g. (London, gb)"
+            onChange={handleChange}
+          />
+          <button type="submit">Search</button>
+          <p>Oops! There's been an error. Please try re-typing your city.</p>
+          <p>
+            If that still doesn't work, please try another city or town nearby!
+          </p>
+        </form>
+      </div>
+    );
+  } else {
+    return (
+      <div className="App">
+        <Title />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={input}
+            placeholder="Input city name, e.g. (London, gb)"
+            onChange={handleChange}
+          />
+          <button type="submit">Search</button>
+
+          <InfoPanel location={location} />
+        </form>
+      </div>
+    );
+  }
 };
