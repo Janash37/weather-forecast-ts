@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: sienna;
-  color: #fff;
+  background-color: lightgray;
+  color: #000;
 }
 
 code {
@@ -28,16 +28,25 @@ h2 {
 
 input {
   margin: 1% 0.5% 1% 0;
-  border: 2px gray solid;
+  border: 2px darkgray solid;
 }
 
 #info-panel {
   margin-top: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 #current-weather {
   display: flex;
   flex-direction: column;
+  margin-right: 3%;
+  border: 2px gray solid;
+}
+
+#current-weather p {
+  font-size: 1.25rem;
 }
 
 #description-div {
@@ -48,6 +57,29 @@ input {
   justify-content: center;
 }
 
+#current-wind {
+  margin-top: 0;
+}
+
 #current-temperature {
   margin-right: 30px;
+}
+
+#long-term-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 3%;
+}
+
+.threeHr-container {
+  border: 1px gray dashed;
+  width: 220px;
+  margin: 0 1%;
+}
+
+.description-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -10px;
 }
