@@ -13,7 +13,7 @@ If you'd like to use these files and work on them yourself, locally:
 1. Fork this repo to your own GitHub account
 2. Clone it down to your machine, into the desired working directory (cloning link found above under the green "Code" dropdown button)
 3. Navigate to the working directory and open the files in the code editor of your choosing
-4. Run: `yarn install` to make sure all dev dependencies are installed
+4. Run `yarn install` to make sure all dev dependencies are installed
 
 
 ## Viewing the app in the dev environment
