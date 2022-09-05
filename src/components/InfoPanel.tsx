@@ -2,7 +2,21 @@ import { FC, useEffect, useState } from "react";
 import { CurrentWeatherCard } from "./CurrentWeatherCard";
 
 interface Props {
-  location: string;
+  location: {
+    city: CityInfo;
+    list: WeatherInfo[];
+  };
+}
+
+interface CityInfo {
+  name: string;
+  country: string;
+}
+
+interface WeatherInfo {
+  main: Main;
+  weather: Weather[];
+  wind: Wind;
 }
 
 interface Main {
@@ -12,69 +26,59 @@ interface Main {
   humidity: number;
 }
 
-interface Wind {
-  speed: number;
-}
-
 interface Weather {
   description: string;
   icon: string;
   id: number;
 }
 
-interface WeatherInfo {
-  main: Main;
-  weather: Weather[];
-  wind: Wind;
-}
-
-interface CityInfo {
-  name: string;
-  country: string;
-}
-
-interface City {
-  city: CityInfo;
-  list: WeatherInfo[];
+interface Wind {
+  speed: number;
 }
 
 export const InfoPanel: FC<Props> = ({ location }) => {
-  const [weatherInfo, setWeatherInfo] = useState<City>({
-    city: {
-      name: "London",
-      country: "gb",
-    },
-    list: [],
-  });
+  const cityName = location.city.name;
 
-  const getApiData = async () => {
-    const response = await fetch(
-      `http://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=9e2f0e0a2078071c8b2824e8c62eb6ea`
-    ).then((response) => {
-      return response.json();
-    });
-    setWeatherInfo(response);
-  };
-
-  useEffect(() => {
-    getApiData();
-  }, [location]);
-
-  if (!weatherInfo) {
+  if (location.list.length === 0) {
     return (
       <div>
-        <p>Loading weather data...</p>
+        <p>
+          Search for a place name to find out what the 3-hour weather forecast
+          is
+        </p>
       </div>
     );
   } else {
+    const temp = (location.list[0].main.temp - 273.15).toFixed(1);
+    const max = (location.list[0].main.temp_max - 273.15).toFixed(1);
+    const min = (location.list[0].main.temp_min - 273.15).toFixed(1);
+    const icon = location.list[0].weather[0].icon + ".png";
+    const description = location.list[0].weather[0].description;
+    const wind = location.list[0].wind.speed;
+    const humidity = location.list[0].main.humidity;
+
     return (
       <div id="info-panel">
-        <div id="current-weather-panel">
-          <CurrentWeatherCard weatherInfo={weatherInfo} />
-          {/* <TwelveHrWeatherCard weatherInfo={weatherInfo} /> */}
-        </div>
-        <div id="eight-day-forecast">
-          {/* <FiveDayWeatherCard weatherInfo={weatherInfo} /> */}
+        <div id="current-weather">
+          <h2 id="city-name">Right now in {cityName}:</h2>
+          <div id="description-div">
+            <p id="current-temperature">{temp}&#176;C</p>
+            <p id="current-icon-description">{description}</p>
+            <img
+              id="current-weather-icon"
+              src={`http://openweathermap.org/img/wn/${icon}`}
+              alt="weather icon"
+            />
+          </div>
+          <div>
+            <p id="current-wind">Wind: {wind}mph</p>
+            <p id="current-humidity">Humidity: {humidity}%</p>
+          </div>
+          <div>
+            <h3>Over the next 3 hours:</h3>
+            <p>Max temp: {max}&#176;C</p>
+            <p>Min temp: {min}&#176;C</p>
+          </div>
         </div>
       </div>
     );
