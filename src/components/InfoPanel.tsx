@@ -38,13 +38,14 @@ interface Wind {
 
 export const InfoPanel: FC<Props> = ({ location }) => {
   const cityName = location.city.name;
+  console.log(location);
 
   if (location.list.length === 0) {
     return (
       <div>
         <p>
           Search for a place name to find out what the 3-hour weather forecast
-          is
+          looks like
         </p>
       </div>
     );

@@ -53,7 +53,6 @@ export const App = () => {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log("inside handleSubmit");
     const comma = /,/;
     const withCommasReplaced = input.replace(comma, "%2C");
     const space = /\s/g;

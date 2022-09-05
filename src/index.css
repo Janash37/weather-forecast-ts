@@ -5,7 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: azure;
+  background-color: sienna;
+  color: #fff;
 }
 
 code {
@@ -13,8 +14,25 @@ code {
     monospace;
 }
 
+header {
+  margin-top: 5%;
+}
+
+h1 {
+  font-size: 2.25rem;
+}
+
 h2 {
   margin-bottom: 10px;
+}
+
+input {
+  margin: 1% 0.5% 1% 0;
+  border: 2px gray solid;
+}
+
+#info-panel {
+  margin-top: 2%;
 }
 
 #current-weather {
