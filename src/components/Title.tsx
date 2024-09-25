@@ -1,6 +1,6 @@
-import { FC } from "react";
+import React from "react";
 
-export const Title: FC = () => {
+export const Title: React.FC = () => {
   return (
     <header>
       <h1>The Short-Term Forecast</h1>

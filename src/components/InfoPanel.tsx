@@ -1,42 +1,7 @@
-import { FC } from "react";
+import React from "react";
+import InfoPanelProps from "../types/infoPanelProps";
 
-interface Props {
-  location: {
-    city: CityInfo;
-    list: WeatherInfo[];
-  };
-}
-
-interface CityInfo {
-  name: string;
-  country: string;
-}
-
-interface WeatherInfo {
-  main: Main;
-  weather: Weather[];
-  wind: Wind;
-  dt_txt?: string;
-}
-
-interface Main {
-  temp: number;
-  temp_max: number;
-  temp_min: number;
-  humidity: number;
-}
-
-interface Weather {
-  description: string;
-  icon: string;
-  id: number;
-}
-
-interface Wind {
-  speed: number;
-}
-
-export const InfoPanel: FC<Props> = ({ location }) => {
+export const InfoPanel: React.FC<InfoPanelProps> = ({ location }) => {
   const cityName = location.city.name;
 
   if (location.list.length === 0) {

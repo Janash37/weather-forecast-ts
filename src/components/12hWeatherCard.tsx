@@ -1,10 +1,10 @@
-import { FC } from "react";
+import React from "react";
 
 interface Props {
   weatherInfo: object;
 }
 
-export const TwelveHrWeatherCard: FC<Props> = ({ weatherInfo }) => {
+export const TwelveHrWeatherCard: React.FC<Props> = ({ weatherInfo }) => {
   //   const cityName = weatherInfo.city.name
   //   const temp = (weatherInfo.list[0].main.temp - 273.15).toFixed(1);
   //   const icon = weatherInfo.list[0].weather[0].icon;

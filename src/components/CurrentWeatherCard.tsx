@@ -38,7 +38,7 @@ interface Props {
   weatherInfo: WeatherObject;
 }
 
-export const CurrentWeatherCard: FC<Props> = ({ weatherInfo }) => {
+export const CurrentWeatherCard: React.FC<Props> = ({ weatherInfo }) => {
   console.log(weatherInfo);
 
   const [info, setInfo] = useState<string | null>(null);
