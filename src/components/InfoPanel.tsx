@@ -54,6 +54,9 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({ location }) => {
       <div id="info-panel">
         <div id="current-weather">
           <h2 id="city-name">Right now in {cityName}:</h2>
+          <p id="current-temperature" style={{ padding: 0, margin: "10px 0" }}>
+            {location.list[0].dt_txt?.slice(location.list[0].dt_txt.length - 8)}
+          </p>
           <div id="description-div">
             <p id="current-temperature">{temp}&#176;C</p>
             <p id="current-icon-description">{description}</p>

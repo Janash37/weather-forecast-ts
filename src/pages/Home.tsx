@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Title } from "../components/Title";
+import { Button, Input } from "antd";
+
 import { InfoPanel } from "../components/InfoPanel";
+import { Title } from "../components/Title";
 import City from "../types/city";
 
 export const Home: React.FC = () => {
@@ -16,11 +18,11 @@ export const Home: React.FC = () => {
     list: [],
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     const comma = /,/;
     const withCommasReplaced = input.replace(comma, "%2C");
     const space = /\s/g;
@@ -30,19 +32,23 @@ export const Home: React.FC = () => {
   };
 
   const getApiData = async () => {
-    await fetch(
-      `http://api.openweathermap.org/data/2.5/forecast?q=${query}&appid=9e2f0e0a2078071c8b2824e8c62eb6ea`
-    )
-      .then((response) => {
-        const responseObj = response.json();
-        return responseObj;
-      })
-      .then((responseObj) => {
-        setLocation(responseObj);
-      })
-      .catch((err) => {
-        setError(true);
-      });
+    try {
+      await fetch(
+        `http://api.openweathermap.org/data/2.5/forecast?q=${query}&appid=9e2f0e0a2078071c8b2824e8c62eb6ea`
+      )
+        .then((response) => {
+          const responseObj = response.json();
+          return responseObj;
+        })
+        .then((responseObj) => {
+          setLocation(responseObj);
+        })
+        .catch((err) => {
+          setError(true);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -75,14 +81,29 @@ export const Home: React.FC = () => {
       <div className="App">
         <Title />
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={input}
-            placeholder="Input city name, e.g. (London, gb)"
-            onChange={handleChange}
-          />
-          <button type="submit">Search</button>
-
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              margin: "40px auto",
+              width: "50%",
+            }}
+          >
+            <Input
+              type="text"
+              value={input}
+              placeholder="Input city name, e.g. (London, gb)"
+              onChange={handleChange}
+              style={{ margin: "0 10px" }}
+            />
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ margin: "0 10px" }}
+            >
+              Search
+            </Button>
+          </div>
           <InfoPanel location={location} />
         </form>
       </div>
